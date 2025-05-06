@@ -51,10 +51,12 @@ int demHocSinhDiem7 (const vector<HocSinh>& danhSach , int left , int right ){
 }
 
 
-void lietKePhuongAn(const vector<HocSinh>& danhSach  , vector<int>& phuongAn ,int batDau , int soHocSinh){
+void lietKePhuongAn(const vector<HocSinh>& danhSach  , vector<int>& phuongAn ,int batDau , int soHocSinh , int &dem  ){
 	
 	if(phuongAn.size() == soHocSinh ){
+		 dem++;
 		int n = 0 ; 
+		cout<<"Phuong an: "<< dem <<endl ;
 		cout<<"STT" <<setw(20)  <<"HoVaTen"<<setw(20) << "DiemSo" <<setw(20)  << "LoaiDaoDuc" <<setw(20) << "TienThuong" <<endl;
 		for(int xds : phuongAn ){
 			cout<<n <<setw(20)<< danhSach[xds].hoTen <<setw(20)<< danhSach[xds].diemTK<<setw(20)
@@ -67,7 +69,7 @@ void lietKePhuongAn(const vector<HocSinh>& danhSach  , vector<int>& phuongAn ,in
 	
     for(int i = batDau; i < danhSach.size(); ++i) {
         phuongAn.push_back(i);
-        lietKePhuongAn(danhSach, phuongAn, i + 1, soHocSinh);
+        lietKePhuongAn(danhSach, phuongAn, i + 1, soHocSinh , dem);
         phuongAn.pop_back();
     }
     
@@ -84,7 +86,11 @@ int main(){
   vector<int> phuongAn;
   cout << "Cac phuong an lay 6 hoc sinh:" << endl;
   cout<<endl; 
-  lietKePhuongAn(danhSach, phuongAn, 0, 6);
+  
+  int dem = 0 ; 
+  lietKePhuongAn(danhSach, phuongAn, 0,danhSach.size() -1, dem  );
+  
+  cout<<"tong co: "<<dem << " phuong an chon 6 hoc sinh "<< endl ;
   
 }
 

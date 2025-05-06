@@ -15,7 +15,7 @@ vector<CauThu> KhoiTaoDanhSach(){
 	vector<CauThu> danhSachCauThu = {
 	{"Vien1" , 2005 , 150000 , 0} , 
 	{"Vien2" , 2005 , 150000 , 0} , 
-	{"Vien3" , 2005 , 150000 , 2020} , 
+	{"Vien3" , 2005 , 150000 , 0} , 
 	{"Vien4" , 2005 , 150000 , 2020} , 
 	{"Vien5" , 2005 , 150000 , 2020} , 
 	{"Vien6" , 2005 , 150000 , 2020} , 
