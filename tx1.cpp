@@ -17,7 +17,8 @@ vector<HocSinh> KhoiTaoDanhSach(){
 	    {"vienC", 10 , "Gioi",300} ,
 	    {"vienD", 7 , "Gioi",400},
 	    {"vienE", 8 , "Gioi",500},
-	    {"vienF", 9 , "Gioi",600}
+	    {"vienF", 9 , "Gioi",600},
+	    {"vienG", 9 , "Gioi",600}
 	};
 	return danhSach;
 }
@@ -88,7 +89,7 @@ int main(){
   cout<<endl; 
   
   int dem = 0 ; 
-  lietKePhuongAn(danhSach, phuongAn, 0,danhSach.size() -1, dem  );
+  lietKePhuongAn(danhSach, phuongAn, 0,6, dem  );
   
   cout<<"tong co: "<<dem << " phuong an chon 6 hoc sinh "<< endl ;
   
