@@ -1,97 +1,210 @@
 #include<bits/stdc++.h>
-using namespace std ;
- 
+using namespace std ; 
+
+
 struct HocSinh{
-	string hoTen ;
-	double diemTK; 
-	string loaiDaoDuc;
-	double tienThuong; 
+	
+   string ten; 
+   double diem; 
+   int tienThuong; 
+   	
 };
 
-vector<HocSinh> KhoiTaoDanhSach(){
-	
-	vector<HocSinh> danhSach = {
-	    {"vienQ", 10 , "Gioi",700} ,
-	    {"vienA", 6 , "Gioi",100} ,
-	    {"vienB", 7 , "Gioi",200} ,
-	    {"vienC", 10 , "Gioi",300} ,
-	    {"vienD", 7 , "Gioi",400},
-	    {"vienE", 8 , "Gioi",500},
-	    {"vienF", 9 , "Gioi",600},
-	    {"vienG", 9 , "Gioi",600}
-	};
-	return danhSach;
-}
+const int MAX =100 ; 
+
+int kichThuocDS = 6 ; 
+HocSinh dSHocSinh[MAX]={
+ {"NguyenBaVien" , 8.5 , 1000},
+ {"NguyenVanTuan" , 8.5 , 20000},
+ {"BuiThiHanh" , 8.5 , 1000},
+ {"QuangThuan" , 8.5 , 1000},
+ {"KieuMinhHieu" , 8 , 1000},
+ {"TaVanTien" , 8.5 , 1000}
+};
 
 
-double TinhTongTienThuong( const vector<HocSinh>& danhSach , int i ){
+int tongTien(HocSinh dSHocSinh[] , int chiSo){
 	
-	if(i < 0 ){
-		return 0 ; 
+	if(chiSo >= kichThuocDS ){
+		return 0 ;
 	}
-	return danhSach[i].tienThuong + TinhTongTienThuong(danhSach , i - 1 ) ; 
+	
+	else{
+		return dSHocSinh[chiSo].tienThuong + tongTien(dSHocSinh , chiSo +1 ); 
+	}
 }
 
 
-int demHocSinhDiem7 (const vector<HocSinh>& danhSach , int left , int right ){
+int demHS(HocSinh dSHocSinh[] , int trai , int phai ){
+	if(trai >phai  ){
+		return 0 ;
+	}
 	
-	if(left > right ) return 0 ; 
-	
-	if(left == right ){
-		if(danhSach[left].diemTK >= 7 ){
+	if(trai == phai ){
+		if(dSHocSinh[trai].diem >= 8.5){
 			return 1 ; 
 		}
 		else{
-			return 0 ;
+			return 0 ; 
 		}
 	}
+	int giua = (trai + phai ) / 2 ; 
+	return demHS(dSHocSinh , trai , giua ) + demHS(dSHocSinh , giua +1  , phai ) ; 
+}
+
+
+
+void xuatTieuDe(){
+	cout<<setw(10)<<"STT"<<
+	setw(20)<<"Ten"<<
+	setw(20)<<"Diem"<<
+	setw(20)<<"Tien thuong"<<endl ; 
+}
+
+
+void xuatDanhSach(HocSinh dSHocSinh[] , int chiSo, int soThuTu){
 	
-	int mid=(left + right) / 2 ; 
-	return demHocSinhDiem7(danhSach ,left ,mid ) + demHocSinhDiem7(danhSach ,mid +1  ,right );
+	if(chiSo >= kichThuocDS){
+		return ; 
+	}
+	else{
+		cout<<setw(10)<<soThuTu <<
+		setw(20)<<dSHocSinh[chiSo].ten <<
+		setw(20)<<dSHocSinh[chiSo].diem <<
+		setw(20)<<dSHocSinh[chiSo].tienThuong <<endl;
+		xuatDanhSach(dSHocSinh , chiSo +1 , soThuTu + 1 ); 
+	}
+}
+
+int viTri[MAX]; 
+bool danhDau[MAX]; 
+int soPhuongAn = 0 ; 
+
+
+void xuatPhuongAn(){
+	
+	for(int i = 0 ; i < kichThuocDS ; i ++ ){
+		cout<<"Vi tri: "<< i + 1 << "-------"<< dSHocSinh[viTri[i]].ten<<endl ; 
+	}
+	cout<<endl ; 
+}
+
+void xepHocSinh(int soGhe){
+	
+	if(soGhe == kichThuocDS){
+		cout<<"phuong an thu: "<<soPhuongAn + 1 << endl ; 
+		xuatPhuongAn(); 
+		soPhuongAn++; 
+		return ;
+	}
+	
+	else{
+		for(int i = 0 ; i < kichThuocDS ; i ++ ){
+			if(!danhDau[i]){
+				danhDau[i] = true ; 
+				viTri[soGhe] = i ; 
+				xepHocSinh(soGhe + 1 ); 
+				danhDau[i] = false ; 
+			}
+		}
+	}
+}
+
+
+void Try(int soGhe){
+	for(int i = 0 ; i < kichThuocDS ; i ++ ){
 		
+		if(!danhDau[i]){
+			viTri[soGhe]= i ; 
+			danhDau[i] = true ; 
+		
+		if(soGhe == 3  ){
+			cout<<"phuong an thu: "<<soPhuongAn + 1 << endl ; 
+		   	xuatPhuongAn(); 
+		   	soPhuongAn ++ ; 
+		}
+		else {
+			Try(soGhe + 1 ); 	
+		}
+		danhDau[i] = false ; 
+    	}
+	}
+}
+
+void xuatPhuongAn(HocSinh toHop[] , int chiSo ){
+	
+	for(int i = 0 ; i < chiSo ; i ++ ){
+		cout<< toHop[i].ten<<endl ; 
+	}
+	cout<<endl ; 
 }
 
 
-void lietKePhuongAn(const vector<HocSinh>& danhSach  , vector<int>& phuongAn ,int batDau , int soHocSinh , int &dem  ){
+void xep(HocSinh dSHocSinh[] , int kichThuocDS , int batDau ,HocSinh toHop[] , int soHocSinh , int chiSo ){
 	
-	if(phuongAn.size() == soHocSinh ){
-		 dem++;
-		int n = 0 ; 
-		cout<<"Phuong an: "<< dem <<endl ;
-		cout<<"STT" <<setw(20)  <<"HoVaTen"<<setw(20) << "DiemSo" <<setw(20)  << "LoaiDaoDuc" <<setw(20) << "TienThuong" <<endl;
-		for(int xds : phuongAn ){
-			cout<<n <<setw(20)<< danhSach[xds].hoTen <<setw(20)<< danhSach[xds].diemTK<<setw(20)
-			<<danhSach[xds].loaiDaoDuc<<setw(20)<<danhSach[xds].tienThuong << endl;
-			n++; 
-		}
-		cout << endl ; 
-		return; 
+	if(chiSo == soHocSinh ){
+		cout<<"phuong an thu: "<<soPhuongAn + 1 << endl ; 
+		xuatPhuongAn(toHop , soHocSinh ); 
+		soPhuongAn++; 
+		return ; 
 	}
 	
-    for(int i = batDau; i < danhSach.size(); ++i) {
-        phuongAn.push_back(i);
-        lietKePhuongAn(danhSach, phuongAn, i + 1, soHocSinh , dem);
-        phuongAn.pop_back();
-    }
-    
-}
- 
-int main(){
-	
-  vector<HocSinh> danhSach = KhoiTaoDanhSach() ; 
-  
-  cout << "Tong tien thuong hoc sinh: "<<TinhTongTienThuong(danhSach , danhSach.size() -1 ) << endl; 
-  
-  cout << "So hoc sinh diem tu 7 tro len : " <<demHocSinhDiem7(danhSach , 0 ,danhSach.size() -1 )<< endl; 
-  
-  vector<int> phuongAn;
-  cout << "Cac phuong an lay 6 hoc sinh:" << endl;
-  cout<<endl; 
-  
-  int dem = 0 ; 
-  lietKePhuongAn(danhSach, phuongAn, 0,6, dem  );
-  
-  cout<<"tong co: "<<dem << " phuong an chon 6 hoc sinh "<< endl ;
-  
+	else{
+		for(int i = batDau ; i <=  kichThuocDS - (soHocSinh -chiSo  ) ; i++ ){
+			toHop[chiSo]=dSHocSinh[i];
+			xep(dSHocSinh , kichThuocDS ,  i +1 ,toHop , soHocSinh ,chiSo +1   );
+		}
+	}
 }
 
+int soHocSinhChon = 4 ;
+//void xuatPhuongAn(){
+//	
+//	for(int i =0 ; i <  soHocSinhChon ; i ++ ){
+//		HocSinh hs = dSHocSinh[viTri[i]] ; 
+//		 cout << setw(20) << hs.ten << setw(10) << hs.diem << setw(15) << hs.tienThuong<< "\n";
+//	}
+//	cout<<endl ; 
+//	
+//}
+
+
+void Try(int viTriDangChon , int batDau){
+	for(int i = batDau ; i < kichThuocDS ; i ++ ){
+		if(!danhDau[i]){
+			viTri[viTriDangChon] = i ; 
+			danhDau[i] = true ;
+			
+			if(viTriDangChon ==soHocSinhChon    ){
+				cout<<"phuong an thu: "<<soPhuongAn + 1 << endl ; 
+				xuatPhuongAn();
+				soPhuongAn++; 
+			}
+			else{
+			    Try(viTriDangChon + 1 , i+1 );	
+			}
+			    danhDau[i] = false ;
+		}
+	}
+}
+
+
+
+
+int main(){
+
+   cout<<"+ Tong tien tat ca hoc sinh la: " << tongTien(dSHocSinh , 0 )<<" VND"<<endl; 
+   cout<<endl ; 
+   cout<<"+ so hoc sinh  diem >=  8.5 la: " << demHS(dSHocSinh , 0  , kichThuocDS -1 )<<" Hoc sinh"<<endl; 
+   cout<<endl ; 
+   
+   cout<<setw(60)<<"---------Danh Sach Hoc Sinh-------------"<<endl ;
+   xuatTieuDe(); 
+   xuatDanhSach(dSHocSinh ,  0,  0 );
+ 	
+   cout<<"So phuong an chon ra 6 hoc sinh vao 6 ghe:"<<endl ;
+//   HocSinh toHop[MAX] ; 
+//   xep(dSHocSinh , kichThuocDS , 0 , toHop , 6 , 0); 
+   Try(0 ); 
+   cout <<"Tong so phuong an la: "<<soPhuongAn<<" Phuong An"<<endl; 
+}

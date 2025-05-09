@@ -122,20 +122,11 @@ void chonToHop6HocSinh(HocSinh danhSachHocSinh[] , int kichThuocDanhSach , int b
 	
 	for(int i = batDau ; i <= kichThuocDanhSach -(soHocSinh - chiSo ) ; i++ ){
 		toHopKetQua[chiSo] = danhSachHocSinh[i]; 
-		(danhSachHocSinh ,kichThuocDanhSach , i+1 ,  toHopKetQua ,soHocSinh , chiSo + 1  ) ; 
+	chonToHop6HocSinh(danhSachHocSinh ,kichThuocDanhSach , i+1 ,  toHopKetQua ,soHocSinh , chiSo + 1  ) ; 
 	}
 	
 }
- /* Gọi datManHinh(0):
-  chọn i = 0 → đặt vào bàn 0
-    gọi datManHinh(1):
-      chọn i = 1 → đặt vào bàn 1
-        gọi datManHinh(2):
-          chọn i = 2 → đặt vào bàn 2
-            gọi datManHinh(3): in phương án (0,1,2)
-      quay lui, thử i = 2 → đặt vào bàn 1
-        ...
-*/
+
 
 void xuatDanhSachHocSinhTheoDeQuy(HocSinh danhSachHocSinh[] , int kichThuocDanhSach  ,int batDau , int soThuTu ){
 	
@@ -230,7 +221,7 @@ void RunMain(){
     chonToHop6HocSinh(danhSachHocSinh ,kichThuocDanhSach , 0 ,toHopKetQua , 6 , 0   ); 
     cout<<" Tong phuong an chon ra 6 hoc sinh la : "<< phuongAnChon6HocSinh << endl;
     
-    xepViTri(0);
+   // xepViTri(0);
 }
 
 
