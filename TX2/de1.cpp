@@ -36,8 +36,8 @@ const int MAX =100 ;
 void xapXepTheoGiaTangDan(CanRuou ds[] , int n ){
 	for(int i = 0 ; i < n ; i ++  ){
 		for(int j = n -1 ; j > i ; j-- ){
-			if(ds[j].giaTri < ds[i].giaTri){
-				swap(ds[j] , ds[i] );
+			if(ds[j].giaTri < ds[j -1 ].giaTri){
+				swap(ds[j] , ds[j -1] );
 			}
 		}
 	}
