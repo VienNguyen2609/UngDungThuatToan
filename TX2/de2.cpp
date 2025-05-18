@@ -31,7 +31,7 @@ struct GiaoTrinh{
 	
 	char tenGiaoTrinh[50];
 	char tenTacGia[50];
-	int giaBia ; 
+	float giaBia ; 
 	int dungTich ; 
 	
 };
@@ -117,7 +117,7 @@ void thuatToanA(GiaoTrinh ds[] , int n , int p ,GiaoTrinh ketQua[] , int& soLuon
 
 
 
-int BMH( char T[],  char P[]) {
+int BMH(const char T[], const char P[]) {
 	
     int n = strlen(T);
     int m = strlen(P);
@@ -156,7 +156,7 @@ int BMH( char T[],  char P[]) {
 
 
 void timGiaoTrinhLapTrinh(GiaoTrinh ds[], int n, GiaoTrinh ketQua[], int& soLuong) {
-     char keyword[] = "Ngon ngu";
+    const char* keyword = "Ngon ngu";
     soLuong = 0;
     for (int i = 0; i < n; i++) {
         if (BMH(ds[i].tenGiaoTrinh, keyword) != -1){
